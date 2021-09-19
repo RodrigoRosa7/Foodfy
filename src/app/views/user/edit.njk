@@ -1,0 +1,30 @@
+{% extends 'layout-admin.njk' %}
+
+{% block content %}
+  <main class="user-dashboard container form">
+    <form action="/admin/users/{{user.id}}?_method=PUT" method="post">
+
+      <div class="header">
+        <h1>Atualizar Usuário</h1>
+        <div class="buttons">
+          <button id ="deleteButton" type="submit" form="form-delete">Deletar</button>
+          <button type="submit">Salvar</button>
+        </div>
+      </div>
+      
+      <div class="fields">
+        {% include "user/fields.njk" %}
+        <input type="hidden" name="id" value="{{user.id}}">
+      </div>
+    </form>
+
+    <form 
+      id="form-delete" 
+      action="/admin/users?_method=DELETE" 
+      method="POST" 
+      onsubmit="return confirm('Tem certeza que deseja excluir sua conta? Essa operação não poderá ser desfeita!')"
+    >
+      <input type="hidden" name="id" value="{{user.id}}">
+    </form>
+  </main>
+{% endblock %}

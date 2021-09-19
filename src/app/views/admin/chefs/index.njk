@@ -1,0 +1,27 @@
+{% extends 'layout-admin.njk'%}
+
+{% block content %}
+
+  <main>
+    <div class="chefTitle">
+      <h1>Gerenciar chefs</h1>
+      {% if canUserCreate %}
+      <a href="/admin/chefs/criar">Cadastrar novo</a>
+      {% endif %}
+    </div>
+    
+    <div class="indexChefs">
+      {% for chef in chefs %}
+      <div class="chefDados" id="{{chef.id}}">
+        <img src="{{chef.avatar_path}}" alt="Imagem de {{chef.name}}">
+
+        <div class="info-card">
+          <p>{{chef.name}}</p>
+          <a href="/admin/chefs/{{chef.id}}">Visualizar</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </main>
+
+{% endblock %}

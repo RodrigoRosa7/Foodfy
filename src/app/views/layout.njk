@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    {% block head %}
+    <title>Foodfy</title>
+    {% endblock %}
+    
+    {% include "parts/styles.njk" %}
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <!-- {% include "parts/site/header.njk" %}  -->
+
+      <header>
+        <nav class="menu">
+          <div class="logotipo">
+            <a href="/"><img src="/assets/logo.png" alt="Foodfy"></a>
+          </div>
+          
+          <div class="links">
+            <a href="/sobre">Sobre</a>
+            <a href="/receitas">Receitas</a>
+            <a href="/chefs">Chefs</a>
+          </div>
+
+          {%block filter%} {%endblock%}
+
+          <div class="links login">
+            <!-- <a href="/admin/users/login">Login</a> -->
+            <a href="/accounts">Login</a>
+          </div>
+        </nav>
+      </header>
+
+      {% block content %} {% endblock %}
+    </div>
+    
+    {% include "parts/site/footer.njk" %}
+  </body>
+</html>

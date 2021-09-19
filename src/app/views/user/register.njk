@@ -1,0 +1,21 @@
+{% extends 'layout-admin.njk' %}
+
+{% block content %}
+  <main class="user-register container form">
+    <form action="/admin/users/register" method="post">
+
+      <div class="header">
+        <h1>Criar usuário</h1>
+        <div class="buttons">
+          <button type="submit">Salvar</button>
+          <a href="/admin/profile">Cancelar</a>
+        </div>
+      </div>
+      
+      <div class="fields">
+        {% include "user/fields.njk" %}
+      </div>
+
+    </form>
+  </main>
+{% endblock %}

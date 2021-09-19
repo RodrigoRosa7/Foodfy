@@ -1,0 +1,81 @@
+:root {
+  --color-button: #6558C3;
+}
+
+.user-admin-dashboard .header {
+  margin-bottom: 72px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.user-admin-dashboard .header h1 {
+  align-self: center;
+}
+
+.user-admin-dashboard .header .buttons {
+  justify-self: center;
+}
+
+.user-admin-dashboard .header .buttons  a {
+  width: 140px;
+  height: 37px;
+  justify-self: end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-button);
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+}
+
+
+/* users */
+.user-admin-dashboard .users h2 {
+  font-size: 18px;
+  line-height: 22px;
+  color: #111111;
+  margin-bottom: 4px;
+}
+
+.user-admin-dashboard .users p {
+  font-size: 14px;
+  color: #777777;
+  line-height: 17px;
+  margin-bottom: 16px;
+}
+
+.user-admin-dashboard .users .links {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+}
+
+.user-admin-dashboard .users .links a:not(:last-child) {
+  color: var(--color-button);
+}
+
+.user-admin-dashboard .users .links button {
+  color: #F55A5A;
+  font-weight: bold;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.user-admin-dashboard .users .links button:hover {
+  color: #d13e3e;
+  transition: 200ms;
+}
+
+.user-admin-dashboard .users {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.user-admin-dashboard .users .user {
+  margin-bottom: 50px;
+}

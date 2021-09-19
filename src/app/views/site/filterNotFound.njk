@@ -1,0 +1,32 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+  <head>
+    <title>Foodfy - Receitas filtradas</title>
+  </head>
+{% endblock %}
+
+{%block filter%}
+  <div class="filter">
+    <form action="/receitas_filtradas" method="get">
+      <input 
+        type="text" 
+        name="filter" 
+        placeholder="Buscar uma receita" 
+        value="{{filter}}"
+      >
+
+      <button type="submit">Buscar</button>
+    </form>
+  </div>
+{%endblock%}
+
+{% block content %}
+  <main>
+    <div class="word-filter">
+      <h2>Nenhuma receita encontrada pelo filtro "{{filter}}"</h2>
+    </div>
+  </main>
+
+
+{% endblock %}

@@ -1,0 +1,83 @@
+<div class="formRecipe">
+  <h2>Imagem da receita</h2>
+  <div class="photos">
+    <div id="photos-upload">
+      <input 
+        id="photos-input"
+        type="file" 
+        name="photos"
+        multiple
+        accept="image/*"
+        onchange="PhotosUpload.handleFileInput(event)"
+      >
+      <i class="material-icons">add</i>
+    </div>
+
+    <div id="photos-preview">
+      {% if files %}
+        {% for image in files %}
+        <div class="photo" id="{{image.id}}">
+          <img src="{{image.src}}" alt="{{image.name}}">
+          <i class="material-icons" 
+              onclick="PhotosUpload.removeOldPhoto(event)">
+            delete</i>
+        </div>
+        {% endfor %}
+        <input type="hidden" name="removed_files">
+      {% endif %}
+    </div>
+  </div>
+  
+
+  <div>
+    <h2>Nome da receita</h2>
+    <input type="text" name="title" value="{{recipe.title}}">
+  </div>
+
+  <div>
+    <h2>Chef</h2>
+    <select name="chef">
+      {% for chef in chefsOptions %}
+        <option value="{{chef.id}}" {% if recipe.chef_id == chef.id %} selected {% endif %}>{{chef.name}}</option>
+      {% endfor %}
+    </select>
+  </div>
+  
+  <div id="ingredients">
+    <h2>Ingredientes</h2>
+    {% if not recipe.ingredients %}
+    <div class="ingredient">
+      <input type="text" name="ingredients[]" value="{{recipe.ingredients}}">
+    </div>
+    {% endif %}
+    
+    {% for ingredient in recipe.ingredients %}
+    <div class="ingredient">
+      <input type="text" name="ingredients[]" value="{{ingredient}}">
+    </div>
+    {% endfor %}
+  </div>
+  <button type="button" class="add-ingredient">Adicionar novo Ingrediente</button>
+
+  <div id="preparations">
+    <h2>Modo de preparo</h2>
+    {% if not recipe.preparations %}
+    <div class="preparation">
+      <input type="text" name="preparations[]" value="{{recipe.preparations}}">
+    </div>
+    {% endif %}
+
+    {% for preparation in recipe.preparations %}
+    <div class="preparation">
+      <input type="text" name="preparations[]" value="{{preparation}}">
+    </div>
+    {% endfor %}
+  </div>
+  <button type="button" class="add-preparation">Adicionar novo passo</button>
+
+  <div>
+    <h2>Informações adicionais</h2>
+    <textarea name="information" cols="30" rows="10">{{recipe.information}}</textarea>
+  </div>
+  
+</div>

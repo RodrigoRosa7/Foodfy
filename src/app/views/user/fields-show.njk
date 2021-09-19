@@ -1,0 +1,37 @@
+<div class="formUser">
+  <div class="form">
+    <div>
+      <h2>Nome</h2>
+      <input 
+        id="input-name" 
+        type="text" 
+        name="name"
+        placeholder="Digite o nome completo" 
+        value="{{user.name}}"
+        required
+      >
+    </div>
+  
+    <div>
+      <h2>Email</h2>
+      <input 
+        id="input-email" 
+        type="email" 
+        name="email"
+        placeholder="Digite o email" 
+        value="{{user.email}}"
+        onblur="Validate.apply(this, 'isEmail')"
+      >
+    </div>
+  </div>
+  
+  <div>
+    <h2>Senha</h2>
+    <input 
+      id="input-password" 
+      type="password" 
+      name="password"
+      placeholder="Digite sua senha para atualizar seu cadastro"
+    >
+  </div>
+</div>

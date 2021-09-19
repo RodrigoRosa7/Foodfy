@@ -1,0 +1,23 @@
+<div class="formLogin">
+  <div>
+    <h2>Email</h2>
+    <input 
+      id="input-email" 
+      type="email" 
+      name="email"
+      placeholder="Digite seu email" 
+      value="{{user.email}}"
+      onblur="Validate.apply(this, 'isEmail')"
+    >
+  </div>
+
+  <div>
+    <h2>Senha</h2>
+    <input 
+      id="input-password" 
+      type="password" 
+      name="password"
+      placeholder="Digite sua senha"
+    >
+  </div>
+</div>

@@ -1,0 +1,45 @@
+{% extends 'layout-admin.njk' %}
+
+{% block content %}
+  <main class="user-admin-dashboard container form">
+    <div class="header">
+      <h1>Usuários</h1>
+      <div class="buttons">
+        <a href="/admin/users/register">Novo</a>
+      </div>
+    </div>
+      
+    <div class="users">
+      {% for user in users %}
+      <div class="user">
+        <h2>{{user.name}}</h2>
+        <p>{{user.email}}</p>
+        <div class="links">
+          <a href="/admin/users/{{user.id}}/editar">Editar</a>
+          
+          <form 
+            id="form-delete" 
+            action="/admin/users?_method=DELETE" 
+            method="POST" 
+            onsubmit="return confirm('Tem certeza que deseja excluir sua conta? Essa operação não poderá ser desfeita!')"
+          >
+            <button id ="RemoverButton" type="submit">Remover</button>
+            <input type="hidden" name="id" value="{{user.id}}">
+          </form>
+          
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <form 
+      id="form-delete" 
+      action="/admin/users?_method=DELETE" 
+      method="POST" 
+      onsubmit="return confirm('Tem certeza que deseja excluir sua conta? Essa operação não poderá ser desfeita!')"
+    >
+      <input type="hidden" name="id" value="{{user.id}}">
+    </form>
+
+  </main>
+{% endblock %}

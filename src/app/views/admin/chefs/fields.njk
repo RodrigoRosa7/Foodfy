@@ -1,0 +1,28 @@
+<div class="formChef">
+  <div>
+    <h2>Nome</h2>
+    <input id="input-name" type="text" name="name" value="{{chef.name}}">
+  </div>
+
+  <h2>Avatar do chef</h2>
+
+  <div id="avatar-chef">
+    {% if chef.avatar_path != null %}
+    <div class="photo">
+      <input type="text" name="avatar_chef" value="{{chef.avatar_name}}">
+    </div>
+    <input type="hidden" name="file_id" value="{{chef.file_id}}">
+    {% endif %}
+  </div>
+
+  <div id="avatar-upload">
+    <input 
+      id="avatar-input"
+      type="file" 
+      name="photo"
+      accept="image/*"
+      onchange="ChefAvatar.handleAvatarInput(event)"
+    >
+    <p>Enviar avatar</p>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="form-resetPassword">
+  <div>
+    <h2>Email</h2>
+    <input 
+      id="input-email" 
+      type="email" 
+      name="email"
+      placeholder="Digite seu email" 
+      value="{{user.email}}"
+      onblur="Validate.apply(this, 'isEmail')"
+    >
+  </div>
+
+  <div>
+    <h2>Nova senha</h2>
+    <input 
+      id="input-password" 
+      type="password" 
+      name="password"
+      placeholder="Digite sua nova senha"
+    >
+  </div>
+
+  <div>
+    <h2>Repetir senha</h2>
+    <input 
+      id="input-password" 
+      type="password" 
+      name="passwordRepeat"
+      placeholder="Repita a nova senha"
+    >
+  </div>
+</div>
+
+<input type="hidden" name="token" value="{{token}}">

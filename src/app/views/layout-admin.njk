@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+  
+  <head>
+    {% block head %}
+    <title>Foodfy</title>
+    {% endblock %}
+    
+    {% include "parts/styles.njk" %}
+  </head>
+
+  <body>
+    {% include "parts/admin/messages.njk" %}
+
+    {% include "parts/admin/header.njk" %}
+
+    <div class="wrapper">
+      {% block content %} {% endblock %}
+    </div>
+
+    {% include "parts/site/footer.njk" %}
+    <script src="/script-admin.js"></script>
+  </body>
+</html>

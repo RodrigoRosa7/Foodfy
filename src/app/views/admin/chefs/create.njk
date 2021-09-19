@@ -1,0 +1,15 @@
+{% extends 'layout-admin.njk' %}
+
+{% block content %}
+  <main>
+    <form action="/admin/chefs" method="post" enctype="multipart/form-data">
+      <div class="formChefHeader">
+        <h1>Cadastrando chef</h1>
+        <button type="submit">Salvar chef</button>
+      </div>
+      
+      {% include "admin/chefs/fields.njk" %}
+    </form>
+  </main>
+
+{% endblock %}

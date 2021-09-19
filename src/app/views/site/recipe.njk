@@ -1,0 +1,91 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+    <title>Receita - {{item.title}}</title>
+{% endblock %}
+
+{% block content %}
+  <div class="recipeDescription">
+    <div class="recipe-header">
+      {# <img src="{{files[0].src}}" alt="imagem da receita de {{item.title}}"> #}
+      <div class="gallery">
+        <div class="highlight">
+          {% if not files[0] %}
+            <img src="http://placehold.it/500x500?text=Produto sem foto" alt="produto sem imagem">  
+          {% else %}
+            <img src="{{files[0].src}}" alt="imagem da receita de {{item.title}}">
+          {% endif %}
+        </div>
+        <div class="gallery-preview">
+          {% for image in files %}
+            <img 
+              src="{{image.src}}" 
+              alt="{{image.name}}"
+              {% if loop.index0 == 0 %}
+                class="active"
+              {% endif %}
+              onclick="ImageGallerySite.setImage(event)"
+            >
+          {% endfor %}
+        </div>
+      </div>
+      
+      <h1>{{item.title}}</h1>
+      <p>{{item.name_chef}}</p>
+    </div>
+
+    <div class="recipe-content">
+      <div class="ingredients">
+        
+        <div class="recipe-content-header">
+          <h2>Ingredientes</h2>
+          <h6>ESCONDER</h6>
+        </div>
+
+        <div class="info-content visible">
+          <ul>
+            {% for ingredient in item.ingredients%}
+              <li>{{ingredient}}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="recipe-content">
+      <div class="preparation">
+
+        <div class="recipe-content-header">
+          <h2>Preparação</h2>
+          <h6>ESCONDER</h6>
+        </div>
+
+        <div class="info-content visible">
+          <ul>
+            {% for preparation in item.preparations%}
+            <li>{{preparation}}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+      </div>   
+    </div>
+
+
+    <div class="recipe-content">
+      <div class="information">
+        <div class="recipe-content-header">
+          <h2>Informações</h2>
+          <h6>ESCONDER</h6>
+        </div>
+
+        <div class="info-content visible">
+          <p>{{item.information}}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+{% endblock %}
