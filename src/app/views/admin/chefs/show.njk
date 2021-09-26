@@ -20,7 +20,7 @@
   <section class="chef_Recipes">
     <h2>Receitas</h2>
     <div class="indexRecipes">
-      {% for recipe in recipes %}
+      {% for recipe in chef.recipes %}
       <div class="recipeDados" id="{{recipe.id}}">
       <img src="{{recipe.recipePhoto}}" alt="Imagem de {{recipe.title}}">
 

@@ -39,7 +39,7 @@ async function createChefs(){
   while(files.length < totalChefs){
     files.push({
       name: faker.image.image(),
-      path: `public/images/placeholder.png`
+      path: `public/images/placeholderChefs.png`
     })
   }
 

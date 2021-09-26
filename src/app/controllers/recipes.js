@@ -4,6 +4,8 @@ const Recipe = require('../models/Recipe')
 const File = require('../models/File')
 const User = require("../models/User")
 
+const LoadRecipesService = require('../services/LoadRecipesService')
+
 module.exports = {
   async index(req, res){
     try {
@@ -13,18 +15,12 @@ module.exports = {
       let recipes
 
       if(user.is_admin){
-        recipes = await Recipe.allRecipes()
-        
+        recipes = await LoadRecipesService.load('recipes')
       } else {
-        recipes = await Recipe.allOfUser(user.id)
+        recipes = await LoadRecipesService.load('recipesOnlyUser', user.id)
       }
 
       if(!recipes) return res.render('admin/recipes/index')
-
-      recipes = recipes.map(recipe => ({
-        ...recipe,
-        recipePhoto: `${req.protocol}://${req.headers.host}${recipe.file_path.replace("public", "")}`
-      }))
 
       const { error, success } = req.session
       req.session.error = ''
@@ -50,28 +46,19 @@ module.exports = {
 
   async edit(req, res){
     try {
-      const recipe = await Recipe.findRecipe(req.params.index)
-
-      if(!recipe) return res.send("Receita não encontrada!")
-
       //Valida se usuário tem acesso a Editar
       const {userId: id} = req.session
       const user = await User.findOne({where: {id}})
+      const chefs = await Recipe.ChefSelectOptions()
+      const recipe = await LoadRecipesService.load('recipe', req.params.index)
+
+      if(!recipe) return res.send("Receita não encontrada!")
 
       if(recipe.user_id != user.id && !user.is_admin){
         return res.redirect('/admin/receitas')
       }
 
-      const chefs = await Recipe.ChefSelectOptions()
-
-      let files = await Recipe.files(recipe.id)
-
-      files = files.map(file => ({
-        ...file,
-        src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-      }))
-
-      return res.render('admin/recipes/edit', {recipe, chefsOptions: chefs, files})
+      return res.render('admin/recipes/edit', {recipe, chefsOptions: chefs})
 
     } catch (error) {
       console.log(error)
@@ -80,13 +67,10 @@ module.exports = {
 
   async show(req, res){
     try {
-      const recipe = await Recipe.findRecipe(req.params.index)
-      
-      if(!recipe) return res.send("Receita não encontrada!")
-
       //validação se usuário logado pode editar a receita
       const {userId: id} = req.session
       const user = await User.findOne({where: {id}})
+      const recipe = await LoadRecipesService.load('recipe', req.params.index)
 
       let canUserEdit = false
 
@@ -94,18 +78,11 @@ module.exports = {
         canUserEdit = true
       }
 
-      let files = await Recipe.files(recipe.id)
-
-      files = files.map(file => ({
-        ...file,
-        src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-      }))
-
       const { error, success } = req.session
       req.session.error = ''
       req.session.success = ''
 
-      return res.render(`admin/recipes/show`, {recipe, files, canUserEdit, error, success})
+      return res.render(`admin/recipes/show`, {recipe, canUserEdit, error, success})
 
     } catch (error) {
       console.log(error)

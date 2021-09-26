@@ -25,7 +25,7 @@ const Recipes = {
       console.log(error)
     }
   },
-  async allOfUser(id){
+  async recipesOnlyUser(id){
     try {
       const results = await db.query(`
       SELECT recipes.*, chefs.name AS name_chef, single_file.path AS file_path

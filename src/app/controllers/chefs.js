@@ -3,11 +3,12 @@ const fs = require('fs')
 const Chef = require('../models/Chef')
 const File = require('../models/File')
 const User = require('../models/User')
+const LoadChefsService = require('../services/LoadChefsService')
 
 module.exports = {
   async index(req, res){
     try {
-      let chefs = await Chef.allChefs()
+      let chefs = await LoadChefsService.load('chefs')
 
       if(!chefs) return res.send("Não há chefs cadastrados")
 
@@ -19,11 +20,6 @@ module.exports = {
       if(user.is_admin){
         canUserCreate = true
       }
-
-      chefs = chefs.map(chef =>({
-        ...chef,
-        avatar_path: `${req.protocol}://${req.headers.host}${chef.avatar_path.replace("public", "")}`
-      }))
 
       const { error, success } = req.session
       req.session.error = ''
@@ -45,7 +41,7 @@ module.exports = {
 
   async show(req, res){
     try {
-      let chef = await Chef.findChef(req.params.index)
+      let chef = await LoadChefsService.load('chef', req.params.index)
 
       if(!chef) return res.send("Chef não encontrado!")
 
@@ -58,23 +54,11 @@ module.exports = {
         canUserEdit = true
       }
 
-      if(chef.avatar_path != null){
-        chef.avatar_path = `${req.protocol}://${req.headers.host}${chef.avatar_path.replace("public", "")}`
-      }
-
-      results = await Chef.chefRecipes(req.params.index)
-      let recipes = results.rows
-
-      recipes = recipes.map(recipe => ({
-        ...recipe,
-        recipePhoto: `${req.protocol}://${req.headers.host}${recipe.file_path.replace("public", "")}`
-      }))
-
       const { error, success } = req.session
       req.session.error = ''
       req.session.success = ''
 
-      return res.render('admin/chefs/show', {chef, recipes, canUserEdit, error, success})
+      return res.render('admin/chefs/show', {chef, canUserEdit, error, success})
 
     } catch (error) {
       console.log(error)

@@ -7,17 +7,16 @@
 {% block content %}
   <div class="recipeDescription">
     <div class="recipe-header">
-      {# <img src="{{files[0].src}}" alt="imagem da receita de {{item.title}}"> #}
       <div class="gallery">
         <div class="highlight">
-          {% if not files[0] %}
+          {% if not item.files[0] %}
             <img src="http://placehold.it/500x500?text=Produto sem foto" alt="produto sem imagem">  
           {% else %}
-            <img src="{{files[0].src}}" alt="imagem da receita de {{item.title}}">
+            <img src="{{item.files[0].src}}" alt="imagem da receita de {{item.title}}">
           {% endif %}
         </div>
         <div class="gallery-preview">
-          {% for image in files %}
+          {% for image in item.files %}
             <img 
               src="{{image.src}}" 
               alt="{{image.name}}"

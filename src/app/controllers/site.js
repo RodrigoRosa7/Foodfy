@@ -1,5 +1,6 @@
 const Recipe = require('../models/Recipe')
-const Chef = require('../models/Chef')
+const LoadRecipesService = require('../services/LoadRecipesService')
+const LoadChefsService = require('../services/LoadChefsService')
 
 module.exports = {
   async indexRecipes(req, res){
@@ -72,18 +73,11 @@ module.exports = {
 
   async show(req, res){
     try {
-      const recipe = await Recipe.findRecipe(req.params.index)
+      const recipe = await LoadRecipesService.load('recipe', req.params.index)
 
       if(!recipe) return res.send("Receita não encontrada!")
 
-      let files = await Recipe.files(recipe.id)
-
-      files = files.map(file => ({
-        ...file,
-        src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
-      }))
-
-      return res.render('site/recipe', {item: recipe, files})
+      return res.render('site/recipe', {item: recipe})
 
     } catch (error) {
       console.log(error)
@@ -92,14 +86,9 @@ module.exports = {
 
   async indexChefs(req, res){
     try {
-      let chefs = await Chef.allChefs()
+      let chefs = await LoadChefsService.load('chefs')
 
       if(!chefs) return res.send("Não há chefs cadastrados")
-
-      chefs = chefs.map(chef =>({
-        ...chef,
-        avatar_path: `${req.protocol}://${req.headers.host}${chef.avatar_path.replace("public", "")}`
-      }))
 
       return res.render('site/chefs', {chefs})
 
@@ -110,23 +99,11 @@ module.exports = {
 
   async showChef(req, res){
     try {
-      let chef = await Chef.findChef(req.params.index)
+      const chef = await LoadChefsService.load('chef', req.params.index)
 
       if(!chef) return res.send("Chef não encontrado")
 
-      if(chef.avatar_path != null){
-        chef.avatar_path = `${req.protocol}://${req.headers.host}${chef.avatar_path.replace("public", "")}`
-      }
-
-      results = await Chef.chefRecipes(req.params.index)
-      let recipes = results.rows
-
-      recipes = recipes.map(recipe => ({
-        ...recipe,
-        recipePhoto: `${req.protocol}://${req.headers.host}${recipe.file_path.replace("public", "")}`
-      }))
-
-      return res.render('site/chef', {chef, recipes})
+      return res.render('site/chef', {chef})
 
     } catch (error) {
       console.log(error)

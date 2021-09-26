@@ -38,9 +38,9 @@ const Chefs = {
       console.error(error)
     }
   },
-  chefRecipes(id){
+  async chefRecipes(id){
     try {
-      return db.query(`
+      const results = await db.query(`
       SELECT recipes.*, chefs.name AS name_chef, single_file.path AS file_path
       FROM recipes
       LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
@@ -51,6 +51,8 @@ const Chefs = {
         ) single_file ON (single_file.recipe_id = recipes.id)
       WHERE chefs.id = $1
       ORDER BY recipes.created_at DESC`, [id])
+      
+      return results.rows
       
     } catch (error) {
       console.log(error)
