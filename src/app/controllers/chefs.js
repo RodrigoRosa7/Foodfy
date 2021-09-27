@@ -92,17 +92,6 @@ module.exports = {
 
   async post(req, res) {
     try {
-      const keys = Object.keys(req.body)
-
-      for (const key of keys) {
-        if(req.body[key] == "")
-          return res.send("Preencha todos os campos corretamente")
-      }
-
-      if(!req.file){
-        return res.send("Por favor inclua o avatar do chef")
-      }
-
       const {name} = req.body
       const created_at = date(Date.now()).iso
 
@@ -131,13 +120,6 @@ module.exports = {
 
   async put(req, res){
     try {
-      const keys = Object.keys(req.body)
-
-      for(const key of keys) {
-        if(req.body[key] == "")
-          return res.send("Preencha todos os campos corretamente")
-      }
-
       const {name, id, file_id} = req.body
 
       if(req.file){
