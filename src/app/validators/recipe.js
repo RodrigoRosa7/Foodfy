@@ -21,7 +21,7 @@ async function post(req, res, next) {
 async function put(req, res, next){
   try {
     const keys = Object.keys(req.body)
-
+   
     for (const key of keys) {
       if(req.body[key] == "" && key != "removed_files")
         return res.send("Preencha todos os campos corretamente")

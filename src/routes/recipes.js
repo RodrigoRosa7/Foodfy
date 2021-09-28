@@ -3,7 +3,7 @@ const routes = express.Router()
 const multer = require('../app/middlewares/multer')
 const controllerRecipes = require('../app/controllers/recipes')
 const {onlyUsers} = require('../app/middlewares/session')
-const validator = require('../app/validators/chef')
+const validator = require('../app/validators/recipe')
 
 routes.get("/", onlyUsers, controllerRecipes.index)
 routes.get("/criar", onlyUsers, controllerRecipes.create)
