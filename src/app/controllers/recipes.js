@@ -95,17 +95,6 @@ module.exports = {
 
   async post(req, res){
     try {
-      const keys = Object.keys(req.body)
-
-      for (const key of keys) {
-        if(req.body[key] == "")
-          return res.send("Preencha todos os campos corretamente")
-      }
-
-      if(req.files.length == 0){
-        return res.send('Por favor inclua pelo menos uma imagem')
-      }
-
       req.body.userId = req.session.userId
 
       const {chef: chef_id, title, ingredients, preparations, information, userId: user_id} = req.body
@@ -149,13 +138,6 @@ module.exports = {
 
   async put(req, res){
     try {
-      const keys = Object.keys(req.body)
-
-      for (const key of keys) {
-        if(req.body[key] == "" && key != "removed_files")
-          return res.send("Preencha todos os campos corretamente")
-      }
-
       let {chef: chef_id, title, ingredients, preparations, information, id} = req.body
       const update_at = date(Date.now()).iso
 
